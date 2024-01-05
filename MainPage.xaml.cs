@@ -1,24 +1,13 @@
-﻿namespace maui_schedule_slurper;
+﻿using maui_schedule_slurper.ViewModels;
+
+namespace maui_schedule_slurper;
 
 public partial class MainPage : ContentPage
 {
-	int count = 0;
-
-	public MainPage()
+	public MainPage(MainViewModel vm)
 	{
 		InitializeComponent();
-	}
-
-	private void OnCounterClicked(object sender, EventArgs e)
-	{
-		count++;
-
-		if (count == 1)
-			CounterBtn.Text = $"Clicked {count} time";
-		else
-			CounterBtn.Text = $"Clicked {count} times";
-
-		SemanticScreenReader.Announce(CounterBtn.Text);
+		this.BindingContext = vm;
 	}
 }
 
