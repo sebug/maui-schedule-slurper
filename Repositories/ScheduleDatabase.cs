@@ -47,4 +47,10 @@ public class ScheduleDatabase
             return await Database.InsertAsync(devroom);
         }
     }
+
+    public async Task<List<Devroom>> GetAllDevrooms()
+    {
+        await Init();
+        return await Database!.Table<Devroom>().ToListAsync();
+    }
 }

@@ -17,6 +17,13 @@
                 Text="Start Fetching the schedule" 
                 Command="{Binding StartSlurping}"
                 HorizontalOptions="Fill" />
+
+            <HorizontalStackLayout>
+                        <Label
+                Text="Synchronized Devrooms: " />
+                <Label
+                Text="{Binding DevroomCount}" />
+            </HorizontalStackLayout>
         </VerticalStackLayout>
     </ScrollView>
 

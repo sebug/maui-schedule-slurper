@@ -10,6 +10,11 @@ public class DevroomRepository : IDevroomRepository
         Database = database;
     }
 
+    public Task<List<Devroom>> GetAll()
+    {
+        return Database.GetAllDevrooms();
+    }
+
     public Task<Devroom?> GetByCode(string code)
     {
         return Database.GetByCode(code);
