@@ -1,6 +1,8 @@
+using CommunityToolkit.Mvvm.Messaging;
 using CoreFoundation;
 using Foundation;
 using HtmlAgilityPack;
+using maui_schedule_slurper.Messages;
 using maui_schedule_slurper.Repositories;
 using ObjCRuntime;
 
@@ -43,8 +45,9 @@ public class DevroomHandler : NSUrlSessionDataDelegate
         .Contains("active"));
         if (activeLi != null)
         {
-            devroom.Name = activeLi.InnerText;
+            devroom.Name = activeLi.InnerText.Trim();
             await devroomRepository.Save(devroom);
+            WeakReferenceMessenger.Default.Send(new DevroomSavedMessage(devroom.Name));
         }
     }
 }

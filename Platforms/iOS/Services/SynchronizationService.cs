@@ -61,7 +61,7 @@ public partial class SynchronizationService
                 if (listLinks.Any())
                 {
                     // temporary: only fetch some rooms
-                    listLinks = listLinks.Take(5).ToList();
+                    listLinks = listLinks.Take(15).ToList();
 
                     var downloadSessionConfiguration = NSUrlSessionConfiguration.CreateBackgroundSessionConfiguration("DownloadDevrooms");
                     downloadSessionConfiguration.Discretionary = true;
@@ -74,7 +74,7 @@ public partial class SynchronizationService
                     {
                         idx += 1;
                         var backgroundTask = downloadSession.CreateDataTask(new NSUrl(listLink.FullURL));
-                        backgroundTask.EarliestBeginDate = NSDate.FromTimeIntervalSinceReferenceDate(10 *
+                        backgroundTask.EarliestBeginDate = NSDate.FromTimeIntervalSinceNow(10 *
                         idx);
                         backgroundTask.CountOfBytesClientExpectsToReceive = 30 * 1024; // 30 KB
                         backgroundTask.CountOfBytesClientExpectsToSend = 200;

@@ -1,6 +1,8 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using maui_schedule_slurper.Messages;
 using maui_schedule_slurper.Repositories;
 using maui_schedule_slurper.Services;
 
@@ -21,6 +23,10 @@ public class MainViewModel : INotifyPropertyChanged
             SynchronizationService.StartSynchronization();
         });
         DevroomRepository = devroomRepository;
+        WeakReferenceMessenger.Default.Register<DevroomSavedMessage>(this, (sender, msg) =>
+        {
+            this.CountDevrooms();
+        });
     }
 
     private int _devroomCount;
@@ -38,6 +44,11 @@ public class MainViewModel : INotifyPropertyChanged
     }
 
     public async Task Initialize()
+    {
+        await CountDevrooms();
+    }
+
+    private async Task CountDevrooms()
     {
         var devrooms = await this.DevroomRepository.GetAll();
         this.DevroomCount = devrooms.Count;
