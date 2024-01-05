@@ -23,7 +23,7 @@ public class MainViewModel : INotifyPropertyChanged
             SynchronizationService.StartSynchronization();
         });
         DevroomRepository = devroomRepository;
-        WeakReferenceMessenger.Default.Register<DevroomSavedMessage>(this, (sender, msg) =>
+        WeakReferenceMessenger.Default.Register<DevroomSynchronizationCompletedMessage>(this, (sender, msg) =>
         {
             this.CountDevrooms();
         });

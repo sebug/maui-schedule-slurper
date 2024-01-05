@@ -47,7 +47,18 @@ public class DevroomHandler : NSUrlSessionDataDelegate
         {
             devroom.Name = activeLi.InnerText.Trim();
             await devroomRepository.Save(devroom);
-            WeakReferenceMessenger.Default.Send(new DevroomSavedMessage(devroom.Name));
+        }
+    }
+
+    public override void DidCompleteWithError(NSUrlSession session, NSUrlSessionTask task, NSError? error)
+    {
+        try
+        {
+            WeakReferenceMessenger.Default.Send(new DevroomSynchronizationCompletedMessage());
+        }
+        catch (Exception)
+        {
+
         }
     }
 }

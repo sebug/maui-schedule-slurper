@@ -2,6 +2,7 @@
 using maui_schedule_slurper.Services;
 using maui_schedule_slurper.ViewModels;
 using Microsoft.Extensions.Logging;
+using Microsoft.Maui.LifecycleEvents;
 
 namespace maui_schedule_slurper;
 

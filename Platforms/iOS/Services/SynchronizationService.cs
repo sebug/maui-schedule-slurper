@@ -74,7 +74,7 @@ public partial class SynchronizationService
                     {
                         idx += 1;
                         var backgroundTask = downloadSession.CreateDataTask(new NSUrl(listLink.FullURL));
-                        backgroundTask.EarliestBeginDate = NSDate.FromTimeIntervalSinceNow(10 *
+                        backgroundTask.EarliestBeginDate = NSDate.FromTimeIntervalSinceNow(3 *
                         idx);
                         backgroundTask.CountOfBytesClientExpectsToReceive = 30 * 1024; // 30 KB
                         backgroundTask.CountOfBytesClientExpectsToSend = 200;
