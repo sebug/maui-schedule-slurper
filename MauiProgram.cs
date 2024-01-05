@@ -1,4 +1,5 @@
-﻿using maui_schedule_slurper.ViewModels;
+﻿using maui_schedule_slurper.Repositories;
+using maui_schedule_slurper.ViewModels;
 using Microsoft.Extensions.Logging;
 
 namespace maui_schedule_slurper;
@@ -15,6 +16,7 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			})
+			.AddRepositories()
 			.AddViewModels()
 			.AddViews();
 
@@ -23,6 +25,13 @@ public static class MauiProgram
 #endif
 
 		return builder.Build();
+	}
+
+	private static MauiAppBuilder AddRepositories(this MauiAppBuilder appBuilder)
+	{
+		appBuilder.Services.AddSingleton<ScheduleDatabase>();
+		appBuilder.Services.AddTransient<IDevroomRepository, DevroomRepository>();
+		return appBuilder;
 	}
 
 	private static MauiAppBuilder AddViewModels(this MauiAppBuilder appBuilder)
