@@ -2,6 +2,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using maui_schedule_slurper.Repositories;
+using maui_schedule_slurper.Services;
 
 namespace maui_schedule_slurper.ViewModels;
 
@@ -9,12 +10,15 @@ public class MainViewModel : INotifyPropertyChanged
 {
     public ICommand StartSlurping { get; }
     private readonly IDevroomRepository DevroomRepository;
+    private readonly ISynchronizationService SynchronizationService;
 
-    public MainViewModel(IDevroomRepository devroomRepository)
+    public MainViewModel(IDevroomRepository devroomRepository,
+    ISynchronizationService synchronizationService)
     {
+        SynchronizationService = synchronizationService;
         StartSlurping = new Command(() =>
         {
-
+            SynchronizationService.StartSynchronization();
         });
         DevroomRepository = devroomRepository;
     }
