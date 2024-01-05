@@ -52,7 +52,23 @@ public partial class SynchronizationService
                     RelativeURL = a.GetAttributeValue("href", String.Empty)
                 })
                 .Where(o => !String.IsNullOrEmpty(o.RelativeURL))
+                .Select(o => new {
+                    Name = o.Name,
+                    FullURL = _baseUrl + o.RelativeURL
+                })
                 .ToList();
+
+                if (listLinks.Any())
+                {
+                    // temporary: only fetch some rooms
+                    listLinks = listLinks.Take(5).ToList();
+
+                    var downloadSessionConfiguration = NSUrlSessionConfiguration.CreateBackgroundSessionConfiguration("DownloadDevrooms");
+                    downloadSessionConfiguration.Discretionary = true;
+                    downloadSessionConfiguration.SessionSendsLaunchEvents = true;
+                    var downloadSession = NSUrlSession.FromConfiguration(downloadSessionConfiguration,
+                    new DownloadDevroomDelegate(), new NSOperationQueue());
+                }
             }
         }
     }
