@@ -67,7 +67,19 @@ public partial class SynchronizationService
                     downloadSessionConfiguration.Discretionary = true;
                     downloadSessionConfiguration.SessionSendsLaunchEvents = true;
                     var downloadSession = NSUrlSession.FromConfiguration(downloadSessionConfiguration,
-                    new DownloadDevroomDelegate(), new NSOperationQueue());
+                    new DevroomHandler(), null);
+
+                    int idx = 0;
+                    foreach (var listLink in listLinks)
+                    {
+                        idx += 1;
+                        var backgroundTask = downloadSession.CreateDataTask(new NSUrl(listLink.FullURL));
+                        backgroundTask.EarliestBeginDate = NSDate.FromTimeIntervalSinceReferenceDate(10 *
+                        idx);
+                        backgroundTask.CountOfBytesClientExpectsToReceive = 30 * 1024; // 30 KB
+                        backgroundTask.CountOfBytesClientExpectsToSend = 200;
+                        backgroundTask.Resume();
+                    }
                 }
             }
         }
