@@ -66,6 +66,7 @@ public partial class SynchronizationService
                     var downloadSessionConfiguration = NSUrlSessionConfiguration.CreateBackgroundSessionConfiguration("DownloadDevrooms");
                     downloadSessionConfiguration.Discretionary = true;
                     downloadSessionConfiguration.SessionSendsLaunchEvents = true;
+                    downloadSessionConfiguration.WaitsForConnectivity = true;
                     var downloadSession = NSUrlSession.FromConfiguration(downloadSessionConfiguration,
                     new DevroomHandler(), null);
 
